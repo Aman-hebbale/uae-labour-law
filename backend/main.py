@@ -52,7 +52,7 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 model_path = "/home/qsczse16/rag_env/llama-1b-instr-Q4_K_M.gguf" 
 
 llm = ChatOllama(
-    model="llama-1b", # Replace with your 1B model name in Ollama
+    model="ollama-1b", # Replace with your 1B model name in Ollama
     temperature=0,
     num_ctx=2048
 )
