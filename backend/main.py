@@ -51,7 +51,7 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 # Point this to your quantized 1B .gguf file
 model_path = "/home/qsczse16/rag_env/llama-1b-instr-Q4_K_M.gguf" 
 
-llm_1b = ChatOllama(
+llm = ChatOllama(
     model="llama-1b", # Replace with your 1B model name in Ollama
     temperature=0,
     num_ctx=2048
