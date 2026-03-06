@@ -13,7 +13,7 @@ from langchain_core.output_parsers import StrOutputParser
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 # 2. Load and Split PDF
-file_path = "D:\\projects for dubai resume\\chat with pdf\\UAE_Labour_Law.pdf"
+file_path = "/home/qsczse16/rag_env/uae-labour-law/backend/UAE_Labour_Law.pdf"
 loader = PyMuPDFLoader(file_path)
 docs = loader.load()
 
@@ -28,7 +28,7 @@ chunks = splitter.split_documents(docs)
 #     persist_directory="chroma_data/",
 #     collection_name="uae_law_docs"
 # )
-CHROMA_DATA_PATH = "D:\\projects for dubai resume\\chat with pdf\\chroma_data"
+CHROMA_DATA_PATH = "/home/qsczse16/rag_env/backend/chroma_data"
 COLLECTION_NAME = "uae_law_docs"
 if os.path.exists(CHROMA_DATA_PATH):
     vectorstore = Chroma(
@@ -49,7 +49,7 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
 # 4. Initialize Local 1B Model
 # Point this to your quantized 1B .gguf file
-model_path = "D:\\projects for dubai resume\\chat with pdf\\llama-1b-instr-Q4_K_M.gguf" 
+model_path = "/home/qsczse16/rag_env/llama-1b-instr-Q4_K_M.gguf" 
 
 llm = ChatLlamaCpp(
     model_path=model_path,
