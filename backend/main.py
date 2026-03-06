@@ -4,11 +4,11 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-from langchain_community.chat_models import ChatLlamaCpp
+# from langchain_community.chat_models import ChatLlamaCpp
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-
+from langchain_ollama import ChatOllama 
 # 1. Setup Embeddings (Kept local for speed)
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
@@ -51,13 +51,10 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 # Point this to your quantized 1B .gguf file
 model_path = "/home/qsczse16/rag_env/llama-1b-instr-Q4_K_M.gguf" 
 
-llm = ChatLlamaCpp(
-    model_path=model_path,
-    temperature=0,           # CRITICAL: Keep at 0 for 1B models to prevent guessing
-    max_tokens=256,         # 1B models give better answers when concise
-    n_ctx=2048,             # 1B doesn't need huge context for simple chunks
-    n_batch=512,
-    verbose=False
+llm_1b = ChatOllama(
+    model="llama-1b", # Replace with your 1B model name in Ollama
+    temperature=0,
+    num_ctx=2048
 )
 
 # 5. The "Strict" Prompt Template
